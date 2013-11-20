@@ -34,7 +34,9 @@ Meteor.Router.beforeRouting = ->
 # Parties
 
 Template.parties.list = ->
-  Parties.find()
+  Parties.find {},
+    sort:
+      created: -1
 
 Template.parties.isLocal = ->
   Session.get 'isLocal'
