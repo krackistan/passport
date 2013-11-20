@@ -1,0 +1,12 @@
+<template name="invite">
+  {{#if guest}}
+    <h1>Welcome, {{guest.name}}</h1>
+    {{#if guest.rsvp}}
+      <p>Chill.</p>
+    {{else}}
+      <input id="rsvp" type="button" value="RSVP">
+    {{/if}}
+  {{else}}
+    <p>Not found.</p>
+  {{/if}}
+</template>

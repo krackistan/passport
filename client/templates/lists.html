@@ -1,0 +1,62 @@
+<body>
+  {{renderPage}}
+</body>
+
+<template name="parties">
+  <h1>Parties</h1>
+  <form>
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" placeholder="Space Goth Party" />
+    <input type="submit" value="Submit" />
+  </form>
+  <ul>
+    {{#each list}}
+      {{> partyItem}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="partyItem">
+  <li><a href="{{guestsPath _id}}">{{name}}</a></li>
+</template>
+
+<template name="guests">
+  {{#if party}}
+    <h1>{{party.name}}</h1>
+    <form>
+      <label for="host">Host</label>
+      <input id="host" name="host" type="text" placeholder="Ivan III the Great" />
+      <label for="guest">Guest</label>
+      <input id="guest" name="guest" type="text" placeholder="Hannah Arendt" />
+      <input type="submit" value="Submit" />
+    </form>
+    <table>
+      <tr>
+        <td>Host</td>
+        <td>Guest</td>
+        <td>RSVP</td>
+        <td>Invite</td>
+      </tr>
+      {{#each list}}
+        {{> guestItem}}
+      {{/each}}
+    </table>
+  {{else}}
+    <p>Not found.</p>
+  {{/if}}
+</template>
+
+<template name="guestItem">
+  <tr>
+    <td>{{host}}</td>
+    <td>{{name}}</td>
+    <td>
+      {{#if rsvp}}
+        Yes
+      {{else}}
+        No
+      {{/if}}
+    </td>
+    <td><a href="{{invitePath _id}}">Invite</a></td>
+  </tr>
+</template>
