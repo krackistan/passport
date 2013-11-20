@@ -2,6 +2,15 @@ Parties = new Meteor.Collection 'parties'
 Guests = new Meteor.Collection 'guests'
 
 
+Deps.autorun ->
+  # Local
+  Meteor.subscribe 'parties'
+  Meteor.subscribe 'guests', Session.get 'currentPartyId'
+
+  # Public
+  Meteor.subscribe 'invite', Session.get 'currentGuestId'
+
+
 Meteor.Router.add
   '/': 'parties'
   '/party/:id':
@@ -12,6 +21,10 @@ Meteor.Router.add
     to: 'invite'
     and: (id) ->
       Session.set 'currentGuestId', id
+
+Meteor.Router.beforeRouting = ->
+  Session.set 'currentPartyId', false
+  Session.set 'currentGuestId', false
 
 
 # Parties
