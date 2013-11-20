@@ -7,22 +7,32 @@
   <form>
     <label for="name">Name</label>
     <input id="name" name="name" type="text" placeholder="Space Goth Party" />
+    <label for="name">When</label>
+    <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
     <input type="submit" value="Submit" />
   </form>
-  <ul>
+  <table>
+    <tr>
+      <td>Party</td>
+      <td>When</td>
+    </tr>
     {{#each list}}
       {{> partyItem}}
     {{/each}}
-  </ul>
+  </table>
 </template>
 
 <template name="partyItem">
-  <li><a href="{{guestsPath _id}}">{{name}}</a></li>
+  <tr>
+    <td><a href="{{guestsPath _id}}">{{name}}</a></td>
+    <td>{{when}}</td>
+  </tr>
 </template>
 
 <template name="guests">
   {{#if party}}
     <h1>{{party.name}}</h1>
+    <p>{{party.when}}</p>
     <form>
       <label for="host">Host</label>
       <input id="host" name="host" type="text" placeholder="Ivan III the Great" />

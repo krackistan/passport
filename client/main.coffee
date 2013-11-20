@@ -23,10 +23,11 @@ Template.parties.events
   'submit form': (e) ->
     e.preventDefault()
     data = _.object([o.name, o.value] for o in $(e.target).serializeArray())
-    return unless data?.name
+    return unless data?.name and data?.when
     $(e.target).trigger 'reset'
     Parties.insert
       name: data.name
+      when: data.when
       created: new Date()
 
 
