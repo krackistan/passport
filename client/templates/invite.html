@@ -4,9 +4,25 @@
     {{#if guest.rsvp}}
       <p>Chill.</p>
     {{else}}
-      <input id="rsvp" type="button" value="RSVP" />
+      <input class="rsvp-button" type="button" value="RSVP" />
     {{/if}}
   {{else}}
-    <p>Not found.</p>
+    {{> notFound}}
   {{/if}}
+</template>
+
+<template name="notFound">
+  <p>
+    se<br />
+    nem<br />
+    for<br />
+    terra
+  </p>
+  <p>
+    se<br />
+    trans<br />
+    for<br />
+    mar
+  </p>
+  <p>(Paulo Leminski)</p>
 </template>

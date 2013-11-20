@@ -1,15 +1,19 @@
 Parties = new Meteor.Collection 'parties'
 Guests = new Meteor.Collection 'guests'
 
+Meteor.startup ->
+  Deps.autorun ->
+    # Local
+    Meteor.subscribe 'parties'
+    Meteor.subscribe 'guests', Session.get 'currentPartyId'
 
-Deps.autorun ->
-  # Local
-  Meteor.subscribe 'parties'
-  Meteor.subscribe 'guests', Session.get 'currentPartyId'
+    # Public
+    Meteor.subscribe 'invite', Session.get 'currentGuestId'
 
-  # Public
-  Meteor.subscribe 'invite', Session.get 'currentGuestId'
-
+  Deps.autorun ->
+    Meteor.call 'isLocal', Meteor.userId(), (err, isLocal) ->
+      throw err if err
+      Session.set 'isLocal', isLocal
 
 Meteor.Router.add
   '/': 'parties'
@@ -32,6 +36,9 @@ Meteor.Router.beforeRouting = ->
 Template.parties.list = ->
   Parties.find()
 
+Template.parties.isLocal = ->
+  Session.get 'isLocal'
+
 Template.parties.events
   'submit form': (e) ->
     e.preventDefault()
@@ -50,9 +57,15 @@ Template.guests.party = ->
   Parties.findOne
     _id: Session.get 'currentPartyId'
 
+Template.guests.isLocal = ->
+  Session.get 'isLocal'
+
 Template.guests.list = ->
   Guests.find
     party: Session.get 'currentPartyId'
+  ,
+    sort:
+      host: 1
 
 Template.guests.events
   'submit form': (e) ->
@@ -64,9 +77,9 @@ Template.guests.events
       name: data.guest
       host: data.host
       party: Session.get 'currentPartyId'
-      invited: new Date()
       rsvp: false
       check: false
+      created: new Date()
 
 
 # Invite
@@ -76,7 +89,7 @@ Template.invite.guest = ->
     _id: Session.get 'currentGuestId'
 
 Template.invite.events
-  'click input#rsvp': (e) ->
+  'click input.rsvp-button': (e) ->
     e.preventDefault()
     Guests.update
       _id: Session.get 'currentGuestId'
@@ -85,7 +98,7 @@ Template.invite.events
         rsvp: true
 
 Template.guestItem.events
-  'click input.check': (e, template) ->
+  'click input.check-in-button': (e, template) ->
     e.preventDefault()
     Guests.update
       _id: template.data._id

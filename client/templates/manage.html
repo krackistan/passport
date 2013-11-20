@@ -3,23 +3,23 @@
 </body>
 
 <template name="parties">
-  <h1>Parties</h1>
-  <form>
-    <label for="name">Name</label>
-    <input id="name" name="name" type="text" placeholder="Space Goth Party" />
-    <label for="name">When</label>
-    <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
-    <input type="submit" value="Submit" />
-  </form>
-  <table>
-    <tr>
-      <td>Party</td>
-      <td>When</td>
-    </tr>
-    {{#each list}}
-      {{> partyItem}}
-    {{/each}}
-  </table>
+  {{#if isLocal}}
+    <h1>Parties</h1>
+    <form>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Space Goth Party" />
+      <label for="name">When</label>
+      <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
+      <input type="submit" value="Submit" />
+    </form>
+    <table>
+      {{#each list}}
+        {{> partyItem}}
+      {{/each}}
+    </table>
+  {{else}}
+    {{> notFound}}
+  {{/if}}
 </template>
 
 <template name="partyItem">
@@ -53,7 +53,7 @@
       {{/each}}
     </table>
   {{else}}
-    <p>Not found.</p>
+    {{> notFound}}
   {{/if}}
 </template>
 
@@ -61,7 +61,7 @@
   <tr>
     <td>
       {{#unless check}}
-        <input class="check" type="button" value="Check-in" />
+        <input class="check-in-button" type="button" value="Check-in" />
       {{/unless}}
     </td>
     <td>{{host}}</td>

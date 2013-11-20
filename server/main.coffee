@@ -1,29 +1,24 @@
 Parties = new Meteor.Collection 'parties'
 Guests = new Meteor.Collection 'guests'
 
-Meteor.startup ->
-# code to run on server at startup
-
 Parties.allow
-  insert: -> isLocal()
+  insert: (userId, doc) -> isLocal userId
 
 Guests.allow
-  insert: -> isLocal()
+  insert: (userId, doc) -> isLocal userId
   update: -> true
   remove: -> true
 
 Meteor.publish 'parties', ->
-  return unless isLocal()
+  return unless isLocal @userId
   Parties.find()
 
 Meteor.publish 'guests', (partyId) ->
-  check(partyId, String)
-  return unless isLocal()
+  return unless isLocal @userId
   Guests.find
     party: partyId
 
 Meteor.publish 'invite', (guestId) ->
-  check(guestId, String)
   Guests.find
     _id: guestId
   ,
@@ -33,5 +28,20 @@ Meteor.publish 'invite', (guestId) ->
       rsvp: 1
       check: 1
 
-isLocal = ->
-  false # iff local IP
+# TODO: Fix this dirty hack
+Meteor.methods
+  'headersToken': (token) ->
+    return unless headers.list[token]
+
+    @_sessionData.headers = headers.list[token]
+    delete headers.list[token]
+
+    ip = @_sessionData?.headers?['x-ip-chain']?.split(',')?[0]
+    @setUserId ip if ip and ip isnt @userId
+
+  'isLocal': (ip) ->
+    isLocal ip
+
+isLocal = (ip) ->
+  return false unless ip
+  return new netmask.Netmask('10.12.0.0/20').contains ip
