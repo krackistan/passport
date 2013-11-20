@@ -4,13 +4,13 @@
 
 <template name="parties">
   {{#if isLocal}}
-    <h1>Parties</h1>
+    <h1>Celebrations</h1>
     <form>
       <label for="name">Name</label>
       <input id="name" name="name" type="text" placeholder="Space Goth Party" />
       <label for="name">When</label>
       <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Invite" />
     </form>
     <table>
       {{#each list}}
