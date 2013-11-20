@@ -53,6 +53,7 @@ Template.guests.events
       party: Session.get 'currentPartyId'
       invited: new Date()
       rsvp: false
+      check: false
 
 
 # Invite
@@ -69,3 +70,12 @@ Template.invite.events
     ,
       $set:
         rsvp: true
+
+Template.guestItem.events
+  'click input.check': (e, template) ->
+    e.preventDefault()
+    Guests.update
+      _id: template.data._id
+    ,
+      $set:
+        check: true

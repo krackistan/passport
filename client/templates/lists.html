@@ -42,6 +42,7 @@
     </form>
     <table>
       <tr>
+        <td>Check-in</td>
         <td>Host</td>
         <td>Guest</td>
         <td>RSVP</td>
@@ -58,6 +59,11 @@
 
 <template name="guestItem">
   <tr>
+    <td>
+      {{#unless check}}
+        <input class="check" type="button" value="Check-in" />
+      {{/unless}}
+    </td>
     <td>{{host}}</td>
     <td>{{name}}</td>
     <td>
