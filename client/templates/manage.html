@@ -40,6 +40,10 @@
       <input id="guest" name="guest" type="text" placeholder="Hannah Arendt" />
       <input type="submit" value="Submit" />
     </form>
+    {{#if myGuest}}
+      <span>Chill. Now send {{myGuest.name}} this invite link:</span>
+      <input type="text" value="{{inviteUrl myGuest._id}}" readonly="readonly" />
+    {{/if}}
     <table>
       <tr>
         <td>Check-in</td>

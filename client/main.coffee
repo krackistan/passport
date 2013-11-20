@@ -59,15 +59,19 @@ Template.guests.party = ->
   Parties.findOne
     _id: Session.get 'currentPartyId'
 
-Template.guests.isLocal = ->
-  Session.get 'isLocal'
-
 Template.guests.list = ->
   Guests.find
     party: Session.get 'currentPartyId'
   ,
     sort:
       host: 1
+
+Template.guests.myGuest = ->
+  guest = Guests.findOne
+    _id: Session.get 'myGuestId'
+
+Template.guests.isLocal = ->
+  Session.get 'isLocal'
 
 Template.guests.events
   'submit form': (e) ->
@@ -82,6 +86,9 @@ Template.guests.events
       rsvp: false
       check: false
       created: new Date()
+    , (err, id) ->
+      throw err if err
+      Session.set 'myGuestId', id
 
 
 # Invite
