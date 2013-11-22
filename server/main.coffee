@@ -16,7 +16,7 @@ Meteor.publish 'parties', ->
 Meteor.publish 'guests', (partyId) ->
   return unless isLocal @userId
   Guests.find
-    party: partyId
+    partyId: partyId
 
 Meteor.publish 'invite', (guestId) ->
   Guests.find
@@ -25,6 +25,8 @@ Meteor.publish 'invite', (guestId) ->
     fields:
       name: 1
       host: 1
+      partyName: 1
+      partyTime: 1
       rsvp: 1
       check: 1
 

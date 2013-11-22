@@ -28,6 +28,8 @@ Meteor.Router.add
 
 Meteor.Router.beforeRouting = ->
   Session.set 'currentPartyId', false
+  Session.set 'currentPartyName', false
+  Session.set 'currentPartyTime', false
   Session.set 'currentGuestId', false
 
 
@@ -45,23 +47,26 @@ Template.parties.events
   'submit form': (e) ->
     e.preventDefault()
     data = _.object([o.name, o.value] for o in $(e.target).serializeArray())
-    return unless data?.name and data?.when
+    return unless data?.name and data?.time
     $(e.target).trigger 'reset'
     Parties.insert
       name: data.name
-      when: data.when
+      time: data.time
       created: new Date()
 
 
 # Guests
 
 Template.guests.party = ->
-  Parties.findOne
+  party = Parties.findOne
     _id: Session.get 'currentPartyId'
+  Session.set 'currentPartyName', party?.name
+  Session.set 'currentPartyTime', party?.time
+  party
 
 Template.guests.list = ->
   Guests.find
-    party: Session.get 'currentPartyId'
+    partyId: Session.get 'currentPartyId'
   ,
     sort:
       check: 1
@@ -75,7 +80,7 @@ Template.guests.isLocal = ->
   Session.get 'isLocal'
 
 Template.guests.events
-  'submit form': (e) ->
+  'submit form': (e, template) ->
     e.preventDefault()
     data = _.object([o.name, o.value] for o in $(e.target).serializeArray())
     return unless data?.host and data?.guest
@@ -83,7 +88,9 @@ Template.guests.events
     Guests.insert
       name: data.guest
       host: data.host
-      party: Session.get 'currentPartyId'
+      partyId: Session.get 'currentPartyId'
+      partyName: Session.get 'currentPartyName'
+      partyTime: Session.get 'currentPartyTime'
       rsvp: false
       check: false
       created: new Date()
@@ -96,6 +103,10 @@ Template.guests.events
 
 Template.invite.guest = ->
   Guests.findOne
+    _id: Session.get 'currentGuestId'
+
+Template.invite.party = ->
+  guest = Guests.findOne
     _id: Session.get 'currentGuestId'
 
 Template.invite.events

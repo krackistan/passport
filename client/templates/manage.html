@@ -22,8 +22,8 @@
             <input id="name" name="name" type="text" placeholder="Space Goth Party" />
           </div>
           <div class="field">
-            <label for="name">When</label>
-            <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
+            <label for="time">When</label>
+            <input id="time" name="time" type="text" placeholder="Saturday, April 20, 1:37 PM" />
           </div>
           <input class="ui blue submit button" type="submit" value="+" />
         </form>
@@ -37,7 +37,7 @@
 <template name="partyItem">
   <tr>
     <td><a href="{{guestsPath _id}}">{{name}}</a></td>
-    <td>{{when}}</td>
+    <td>{{time}}</td>
   </tr>
 </template>
 

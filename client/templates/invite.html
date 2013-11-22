@@ -1,11 +1,16 @@
 <template name="invite">
   {{#if guest}}
-    <h1>Welcome, {{guest.name}}</h1>
-    {{#if guest.rsvp}}
-      <p>Chill.</p>
-    {{else}}
-      <input class="rsvp-button" type="button" value="RSVP" />
-    {{/if}}
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <h3>The Demokratik Republik of Krackistan invites</h3>
+        <h1>{{guest.name}}</h1>
+        <h3>to {{guest.partyName}} @ {{guest.partyTime}}</h3>
+        {{#if guest.rsvp}}
+          <p>Chill.</p>
+        {{else}}
+          <input class="rsvp-button" type="button" value="RSVP" />
+        {{/if}}
+      </div>
   {{else}}
     {{> notFound}}
   {{/if}}
