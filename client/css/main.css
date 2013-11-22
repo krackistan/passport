@@ -17,3 +17,17 @@ a:hover {
 input {
   font-family: "Inconsolata", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
 }
+
+.invite {
+  text-align: center !important;
+  width: 640px;
+  margin: auto;
+}
+
+.invite h1 {
+  margin: 30px 0;
+}
+
+.invite section {
+  margin: 60px 0
+}
