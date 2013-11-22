@@ -4,19 +4,31 @@
 
 <template name="parties">
   {{#if isLocal}}
-    <h1>Celebrations</h1>
-    <form>
-      <label for="name">Name</label>
-      <input id="name" name="name" type="text" placeholder="Space Goth Party" />
-      <label for="name">When</label>
-      <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
-      <input type="submit" value="Create" />
-    </form>
-    <table>
-      {{#each list}}
-        {{> partyItem}}
-      {{/each}}
-    </table>
+    <div class="ui grid">
+      <div class="ten wide column">
+        <h2>cult.casa-z.org</h2>
+        <table class="ui table segment">
+          <tbody>
+            {{#each list}}
+              {{> partyItem}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="six wide column">
+        <form class="ui form segment">
+          <div class="field">
+            <label for="name">What</label>
+            <input id="name" name="name" type="text" placeholder="Space Goth Party" />
+          </div>
+          <div class="field">
+            <label for="name">When</label>
+            <input id="when" name="when" type="text" placeholder="Saturday, April 20, 1:37 PM" />
+          </div>
+          <input class="ui blue submit button" type="submit" value="+" />
+        </form>
+      </div>
+    </div>
   {{else}}
     {{> notFound}}
   {{/if}}
@@ -31,41 +43,63 @@
 
 <template name="guests">
   {{#if party}}
-    <h1>{{party.name}}</h1>
-    <p>{{party.when}}</p>
-    <form>
-      <label for="host">Host</label>
-      <input id="host" name="host" type="text" placeholder="Ivan III the Great" />
-      <label for="guest">Guest</label>
-      <input id="guest" name="guest" type="text" placeholder="Hannah Arendt" />
-      <input type="submit" value="Invite" />
-    </form>
-    {{#if myGuest}}
-      <span>Chill. Now send {{myGuest.name}} this invite link:</span>
-      <input type="text" value="{{inviteUrl myGuest._id}}" readonly="readonly" />
-    {{/if}}
-    <table>
-      <tr>
-        <td>Check-in</td>
-        <td>Host</td>
-        <td>Guest</td>
-        <td>RSVP</td>
-        <td>Invite</td>
-      </tr>
-      {{#each list}}
-        {{> guestItem}}
-      {{/each}}
-    </table>
+    <div class="ui grid">
+      <div class="ten wide column">
+        <h2>{{party.name}}</h2>
+        <table class="ui table segment">
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>Host</th>
+              <th>Guest</th>
+              <th>RSVP</th>
+              <th>Invite</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each list}}
+              {{> guestItem}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class="six wide column">
+        <form class="ui warning form segment">
+          <div class="field">
+            <label for="host">Host</label>
+            <input id="host" name="host" type="text" placeholder="Ivan III the Great" />
+          </div>
+          <div class="field">
+            <label for="guest">Guest</label>
+            <input id="guest" name="guest" type="text" placeholder="Hannah Arendt" />
+          </div>
+          <div class="ui warning message">
+            <p>Max. 2 per host</p>
+          </div>
+          <input class="ui blue submit button" type="submit" value="Invite" />
+        </form>
+        {{#if myGuest}}
+          <div class="ui segment">
+            <div class="ui green message">
+              <p>Chill. Now send {{myGuest.name}} this invite link:</p>
+              <div class="ui action input">
+                <input type="text" value="{{inviteUrl myGuest._id}}" readonly="readonly" />
+              </div>
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
   {{else}}
     {{> notFound}}
   {{/if}}
 </template>
 
 <template name="guestItem">
-  <tr>
+  <tr class="{{#if rsvp}} positive {{else}} negative {{/if}}">
     <td>
       {{#unless check}}
-        <input class="check-in-button" type="button" value="Check-in" />
+        <input class="check-in-button ui {{#if rsvp}} green {{else}} red {{/if}} button" type="button" value="Check-in" />
       {{/unless}}
     </td>
     <td>{{host}}</td>

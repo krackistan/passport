@@ -64,6 +64,7 @@ Template.guests.list = ->
     party: Session.get 'currentPartyId'
   ,
     sort:
+      check: 1
       host: 1
 
 Template.guests.myGuest = ->
