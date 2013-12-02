@@ -26,6 +26,11 @@ Meteor.Router.add
     and: (id) ->
       Session.set 'currentGuestId', id
 
+  '/invite/:id/gate':
+    to: 'gate'
+    and: (id) ->
+      Session.set 'currentGuestId', id
+
 Meteor.Router.beforeRouting = ->
   Session.set 'currentPartyId', false
   Session.set 'currentPartyName', false
@@ -123,13 +128,8 @@ Template.invite.party = ->
     _id: Session.get 'currentGuestId'
 
 Template.invite.events
-  'click input.rsvp-button': (e) ->
-    e.preventDefault()
-    Guests.update
-      _id: Session.get 'currentGuestId'
-    ,
-      $set:
-        rsvp: true
+  'click .continue-button': (e) ->
+    Meteor.Router.to Meteor.Router.gatePath Session.get 'currentGuestId'
 
 Template.gate.number = ->
   Session.get 'currentGateNumber'
@@ -154,3 +154,12 @@ Template.gate.events
   'click .wrong-option': (e) ->
     Session.set 'choseWrongOption', true
     Session.set 'disableOptions', true
+
+  'click .rsvp-button': (e) ->
+    e.preventDefault()
+    Guests.update
+      _id: Session.get 'currentGuestId'
+    ,
+      $set:
+        rsvp: true
+    Meteor.Router.to Meteor.Router.invitePath Session.get 'currentGuestId'
