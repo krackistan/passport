@@ -144,7 +144,7 @@ Template.gate.events
     current = Session.get 'currentGateNumber'
     next = current + 1
     $('.gate').hide()
-    $('.gate [name=\'gate-' + next + '\']').show()
+    $('.gate .gate-' + next).show()
     Session.set 'currentGateNumber', next
 
   'click .correct-option': (e) ->
