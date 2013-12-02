@@ -31,6 +31,10 @@ Meteor.Router.beforeRouting = ->
   Session.set 'currentPartyName', false
   Session.set 'currentPartyTime', false
   Session.set 'currentGuestId', false
+  Session.set 'currentGateNumber', 1
+  Session.set 'choseCorrectOption', false
+  Session.set 'choseWrongOption', false
+  Session.set 'disableOptions', false
 
 
 # Parties
@@ -98,6 +102,15 @@ Template.guests.events
       throw err if err
       Session.set 'myGuestId', id
 
+Template.guestItem.events
+  'click input.check-in-button': (e, template) ->
+    e.preventDefault()
+    Guests.update
+      _id: template.data._id
+    ,
+      $set:
+        check: true
+
 
 # Invite
 
@@ -118,11 +131,26 @@ Template.invite.events
       $set:
         rsvp: true
 
-Template.guestItem.events
-  'click input.check-in-button': (e, template) ->
-    e.preventDefault()
-    Guests.update
-      _id: template.data._id
-    ,
-      $set:
-        check: true
+Template.gate.number = ->
+  Session.get 'currentGateNumber'
+
+Template.gate.events
+  'click .advance-gate-button': (e) ->
+    # Reset
+    Session.set 'choseCorrectOption', false
+    Session.set 'choseWrongOption', false
+    Session.set 'disableOptions', false
+
+    current = Session.get 'currentGateNumber'
+    next = current + 1
+    $('.gate').hide()
+    $('.gate [name=\'gate-' + next + '\']').show()
+    Session.set 'currentGateNumber', next
+
+  'click .correct-option': (e) ->
+    Session.set 'choseCorrectOption', true
+    Session.set 'disableOptions', true
+
+  'click .wrong-option': (e) ->
+    Session.set 'choseWrongOption', true
+    Session.set 'disableOptions', true
