@@ -7,7 +7,7 @@
     "router": {},
     "headers": {
       "branch": "override-method",
-      "git": "https://github.com/rochdale/meteor-headers.git"
+      "git": "https://github.com/krackistan/meteor-headers.git"
     }
   }
 }
