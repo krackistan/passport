@@ -37,9 +37,7 @@ Meteor.Router.beforeRouting = ->
   Session.set 'currentPartyTime', false
   Session.set 'currentGuestId', false
   Session.set 'currentGateNumber', 1
-  Session.set 'choseCorrectOption', false
   Session.set 'choseWrongOption', false
-  Session.set 'disableOptions', false
 
 
 # Parties
@@ -131,31 +129,26 @@ Template.invite.events
   'click .continue-button': (e) ->
     Meteor.Router.to Meteor.Router.gatePath Session.get 'currentGuestId'
 
-Template.gate.number = ->
-  Session.get 'currentGateNumber'
+Template.gate.isGate = (number) ->
+  Session.equals 'currentGateNumber', number
+
+Template.gate.choseWrongOption = ->
+  Session.get 'choseWrongOption'
 
 Template.gate.events
-  'click .advance-gate-button': (e) ->
-    # Reset
-    Session.set 'choseCorrectOption', false
+  'click .start-over': (e) ->
     Session.set 'choseWrongOption', false
-    Session.set 'disableOptions', false
-
-    current = Session.get 'currentGateNumber'
-    next = current + 1
-    $('.gate').hide()
-    $('.gate .gate-' + next).show()
-    Session.set 'currentGateNumber', next
+    Session.set 'currentGateNumber', 1
 
   'click .correct-option': (e) ->
-    Session.set 'choseCorrectOption', true
-    Session.set 'disableOptions', true
+    unless Session.get 'choseWrongOption'
+      current = Session.get 'currentGateNumber'
+      Session.set 'currentGateNumber', current + 1
 
   'click .wrong-option': (e) ->
     Session.set 'choseWrongOption', true
-    Session.set 'disableOptions', true
 
-  'click .rsvp-button': (e) ->
+  'click .rsvp': (e) ->
     e.preventDefault()
     Guests.update
       _id: Session.get 'currentGuestId'

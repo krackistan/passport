@@ -5,61 +5,79 @@
     <p>One more thing...we have a things to ask you before you can RSVP. It should be a breeze if you've paid attention in our community agreements.</p>
   </div>
 
-  <div class="gate gate-1">
-    <div class="q-1">
-      <p>A visibly drunk person makes a sexual advance on you. You're interested. What do you do?</p>
-      <a href="#">Go along with it.</a>
-      <a href="#">Ask for their number.</a>
+  {{#if isGate 1}}
+    <div class="gate gate-1">
+      <div class="q-1">
+        <p>A visibly drunk person makes a sexual advance on you. You're interested. What do you do?</p>
+        <a href="#" class="wrong-option">Go along with it.</a>
+        <a href="#" class="correct-option">Ask for their number.</a>
+      </div>
+      {{#if choseWrongOption}}
+        <div class="wrong-1">
+          <p class="wrong-text">That doesn't seem right...a person under the influence of a substance cannot consent</p>
+          <input type="button" class="start-over" value="Start Over" />
+        </div>
+      {{/if}}
     </div>
-    <div class="wrong-1">
-      <p class="wrong-text">That doesn't seem right...a person under the influence of a substance cannot consent</p>
-      <input type="button" class="start-over" value="Start Over" />
-    </div>
-  </div>
+  {{/if}}
 
-  <div class="gate gate-2">
-    <div class="q-2">
-      <p class="correct-text">That's right - Get their digits and maybe hangout another time! :)</p>
-      <p>Later in the night, you're provocatively dancing with someone in sexy clothes who seems to be into you. The person is sober. You'd like to initiate sex. What do you do?</p>
-      <a href="#">Make a move.</a>
-      <a href="#">Ask if they're interested</a>
+  {{#if isGate 2}}
+    <div class="gate gate-2">
+      <div class="q-2">
+        <p class="correct-text">That's right - Get their digits and maybe hangout another time! :)</p>
+        <p>Later in the night, you're provocatively dancing with someone in sexy clothes who seems to be into you. The person is sober. You'd like to initiate sex. What do you do?</p>
+        <a href="#" class="wrong-option">Make a move.</a>
+        <a href="#" class="correct-option">Ask if they're interested</a>
+      </div>
+      {{#if choseWrongOption}}
+        <div class="wrong-2">
+          <p class="wrong-text">Not quite...you should always ask to make sure. Consent in one activity does not automatically give you consent to engage in another.</p>
+          <input type="button" class="start-over" value="Start Over" />
+        </div>
+      {{/if}}
     </div>
-    <div class="wrong-2">
-      <p class="wrong-text">Not quite...you should always ask to make sure. Consent in one activity does not automatically give you consent to engage in another.</p>
-      <input type="button" class="start-over" value="Start Over" />
-    </div>
-  </div>
+  {{/if}}
 
-  <div class="gate gate-3">
-    <div class="q-3">
-      <p class="correct-text">Correct - consent in one activity does not automatically give you consent in another. When in doubt, always ask to make sure!</p>
-      <p>You asked if they were interested, but they didn't respond. What do you do next?</p>
-      <a href="#">Ask again until you receive a yes.</a>
-      <a href="#">Leave - if they change their mind they will come look for you</a>
+  {{#if isGate 3}}
+    <div class="gate gate-3">
+      <div class="q-3">
+        <p class="correct-text">Correct - consent in one activity does not automatically give you consent in another. When in doubt, always ask to make sure!</p>
+        <p>You asked if they were interested, but they didn't respond. What do you do next?</p>
+        <a href="#" class="wrong-option">Ask again until you receive a yes.</a>
+        <a href="#" class="correct-option">Leave - if they change their mind they will come look for you</a>
+      </div>
+      {{#if choseWrongOption}}
+        <div class="wrong-3">
+          <p class="wrong-text">A lot of the times, people feel uncomfortable saying no but silence does not imply consent. Never confuse the two.</p>
+          <input type="button" class="start-over" value="Start Over" />
+        </div>
+      {{/if}}
     </div>
-    <div class="wrong-3">
-      <p class="wrong-text">A lot of the times, people feel uncomfortable saying no but silence does not imply consent. Never confuse the two.</p>
-      <input type="button" class="start-over" value="Start Over" />
-    </div>
-  </div>
+  {{/if}}
 
-  <div class="gate gate-4">
-    <div class="q-3">
-      <p class="correct-text">That's right! Never confuse silence with consent - besides there are plent of people to talk to in this space.</p>
-      <p>Later on, they agree to have sex with you, but expresses insecurity during the act. What do you do?</p>
-      <a href="#">Talk about it with them to see if they still wish to proceed.</a>
-      <a href="#">Double your effort to make it more pleasant</a>
+  {{#if isGate 4}}
+    <div class="gate gate-4">
+      <div class="q-3">
+        <p class="correct-text">That's right! Never confuse silence with consent - besides there are plent of people to talk to in this space.</p>
+        <p>Later on, they agree to have sex with you, but expresses insecurity during the act. What do you do?</p>
+        <a href="#" class="correct-option">Talk about it with them to see if they still wish to proceed.</a>
+        <a href="#" class="wrong-option">Double your effort to make it more pleasant</a>
+      </div>
+      {{#if choseWrongOption}}
+        <div class="wrong-4">
+          <p class="wrong-text">That's wrong - consent can be given and taken away at any time.</p>
+          <input type="button" class="start-over" value="Start Over" />
+        </div>
+      {{/if}}
     </div>
-    <div class="wrong-4">
-      <p class="wrong-text">That's wrong - consent can be given and taken away at any time.</p>
-      <input type="button" class="start-over" value="Start Over" />
-    </div>
-  </div>
+  {{/if}}
 
-  <div class="gate gate-5">
-    <p>That's right! Consent can be given and taken away at any time. Always check with your partner to make sure they are comfortable with what you're doing</p>
-    <p>Now that you're versed in our community agreements, it sounds like you're ready to be admitted to our humble nation of Krackistan!</p>
-    <input type="button" class="rsvp" value="RSVP" />
-  </div>
+  {{#if isGate 5}}
+    <div class="gate gate-5">
+      <p class="correct-text">That's right! Consent can be given and taken away at any time. Always check with your partner to make sure they are comfortable with what you're doing</p>
+      <p>Now that you're versed in our community agreements, it sounds like you're ready to be admitted to our humble nation of Krackistan!</p>
+      <input type="button" class="rsvp" value="RSVP" />
+    </div>
+  {{/if}}
 
 </template>

@@ -8,7 +8,7 @@
     "basePackages": {
       "router": {},
       "headers": {
-        "git": "https://github.com/rochdale/meteor-headers.git",
+        "git": "https://github.com/krackistan/meteor-headers.git",
         "branch": "override-method"
       }
     },
@@ -19,7 +19,7 @@
         "commit": "d00e380dda2184b70e909fc4a0fb5358d602c586"
       },
       "headers": {
-        "git": "https://github.com/rochdale/meteor-headers.git",
+        "git": "https://github.com/krackistan/meteor-headers.git",
         "branch": "override-method",
         "commit": "a86b1c8f20e87cedcd25f49644a85ed6f52f9e4e"
       },
