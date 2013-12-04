@@ -10,5 +10,4 @@ coffeescript
 underscore
 router
 headers
-netmask
 accounts-base

@@ -1,5 +1,5 @@
-Parties = new Meteor.Collection 'parties'
-Guests = new Meteor.Collection 'guests'
+@Parties = new Meteor.Collection 'parties'
+@Guests = new Meteor.Collection 'guests'
 
 Meteor.startup ->
   Deps.autorun ->
