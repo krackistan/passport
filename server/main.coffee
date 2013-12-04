@@ -45,6 +45,6 @@ Meteor.methods
     isLocal ip
 
 isLocal = (ip) ->
-  return true # for debugging in localhost
+  #return true # for debugging in localhost
   return false unless ip
-  return new netmask.Netmask('10.12.0.0/20').contains ip
+  return new netmask.Netmask('10.172.17.33').contains ip
