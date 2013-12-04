@@ -11,7 +11,7 @@ Meteor.startup ->
     Meteor.subscribe 'invite', Session.get 'currentGuestId'
 
   Deps.autorun ->
-    Meteor.call 'isLocal', Meteor.userId(), (err, isLocal) ->
+    Meteor.call 'amILocal', (err, isLocal) ->
       throw err if err
       Session.set 'isLocal', isLocal
 
