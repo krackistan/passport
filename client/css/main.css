@@ -29,8 +29,22 @@ input {
   margin: 30px 0;
 }
 
+.invite h3.attention {
+  color: rgb(200,0,0);
+}
+
 .invite section {
   margin: 60px 0
+}
+
+#winston {
+  text-align: center;
+  padding: 30px 0;
+}
+
+#winston img {
+  width: 180px;
+  height auto;
 }
 
 .gate a {
@@ -47,4 +61,28 @@ input {
 .gate a:hover {
   background: rgba(0,200,0,0.1);
   border: 1px solid #00cc00;
+}
+
+.gate-1, .gate-2, .gate-3, .gate-4 {
+  border: 1px solid rgba(0,0,0,0.6);
+  width: 562px;
+  padding: 40px 30px;
+  margin-top: 64px;
+}
+
+.correct-text {
+  color: #00cc00;
+}
+
+.wrong-text {
+  color: #cc0000;
+}
+
+.invite .end {
+  height: 220px;
+}
+
+section.tome {
+  border: 1px solid rgba(0,0,0,0.6);
+  padding: 40px 30px;
 }

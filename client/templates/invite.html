@@ -1,17 +1,21 @@
 <template name="invite">
   {{#if guest}}
     <div class="invite">
-      <h3>The Demokratik Republik of Krackistan invites</h3>
+      <div id="winston">
+        <img src="/img/image.png">
+      </div>
+      <h3>The Holy Order of Casa Zimbabwe invites</h3>
       <h1>{{guest.name}}</h1>
       <h3>to {{guest.partyName}} @ {{guest.partyTime}}</h3>
       {{#if guest.rsvp}}
-        <p>You have RSVP'd!</p>
+        <p class="correct-text">You have RSVP'd!</p>
+        <p>See you there at 2422 Ridge Road!</p>
       {{else}}
         <section>
-          <h3>...but before, you must be initiated.</h3>
+          <h3 class="attention">...but you haven't been inducted into the order yet. Please complete to RSVP.</h3>
         </section>
       {{/if}}
-      <section>
+      <section class="tome">
         <h1>TOME OF THE CZAR</h1>
         <h3><em>Community Agreements</em></h3>
         <h2>I.</h2>
@@ -37,7 +41,9 @@
         </ol>
       </section>
       {{#unless guest.rsvp}}
-        <input class="continue-button ui blue submit button" type="button" value="Ok, got it!" />
+        <div class="end">
+          <input class="continue-button ui blue submit button" type="button" value="Continue" />
+        </div>
       {{/unless}}
     </div>
   {{else}}
