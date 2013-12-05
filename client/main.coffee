@@ -11,9 +11,17 @@ Meteor.startup ->
     Meteor.subscribe 'invite', Session.get 'currentGuestId'
 
   Deps.autorun ->
-    Meteor.call 'amILocal', (err, isLocal) ->
-      throw err if err
-      Session.set 'isLocal', isLocal
+    updateLocal()
+    Meteor.setTimeout updateLocal, 100
+    Meteor.setTimeout updateLocal, 250
+    Meteor.setTimeout updateLocal, 1000
+    Meteor.setTimeout updateLocal, 2500
+
+updateLocal = ->
+  Meteor.call 'amILocal', (err, isLocal) ->
+    throw err if err
+    console.log isLocal
+    Session.set 'isLocal', isLocal
 
 Meteor.Router.add
   '/': 'parties'
